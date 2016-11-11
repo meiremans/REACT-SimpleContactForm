@@ -32,10 +32,9 @@ class ContactForm extends React.Component {
     })
 }
     componentDidMount() {
-        // some logic here - we only test if the method is called
+
     }
     render() {
-        const {error} = this.state;
         return (
             <div className="contactForm">
                 <div><h1>{this.props.data.header}</h1></div>
