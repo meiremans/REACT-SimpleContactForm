@@ -7,14 +7,9 @@ function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
-
+const {error} = this.state;
 class ContactForm extends React.Component {
 
-    getInitialState() {
-        return {
-            error: false
-        }
-    }
     _handleSubmit (event) {
     var email = $("#email").val();
     if (validateEmail(email)) {
@@ -27,14 +22,11 @@ class ContactForm extends React.Component {
         event.preventDefault();
         $('#emailId').addClass('has-danger');
     }
-    this.setState({
-        error: true
-    })
-}
-    componentDidMount() {
 
-    }
+}
+
     render() {
+
         return (
             <div className="contactForm">
                 <div><h1>{this.props.data.header}</h1></div>
