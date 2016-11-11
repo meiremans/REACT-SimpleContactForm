@@ -90,13 +90,6 @@
         }
 
         _createClass(ContactForm, [{
-            key: "getInitialState",
-            value: function getInitialState() {
-                return {
-                    error: false
-                };
-            }
-        }, {
             key: "_handleSubmit",
             value: function _handleSubmit(event) {
                 var email = (0, _jquery2.default)("#email").val();
@@ -110,19 +103,10 @@
                     event.preventDefault();
                     (0, _jquery2.default)('#emailId').addClass('has-danger');
                 }
-                this.setState({
-                    error: true
-                });
-            }
-        }, {
-            key: "componentDidMount",
-            value: function componentDidMount() {
-                // some logic here - we only test if the method is called
             }
         }, {
             key: "render",
             value: function render() {
-                var error = this.state.error;
 
                 return _react2.default.createElement(
                     "div",
