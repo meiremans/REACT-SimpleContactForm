@@ -18,6 +18,7 @@ class ContactForm extends React.Component {
     }
 
     updateEmail (evt) {
+
         this.setState({
             email: evt.target.value
         });
