@@ -8,9 +8,7 @@ function validateEmail(email) {
 
 class ContactForm extends React.Component {
 
-    getInitialState:
-
-    function () {
+    getInitialState() {
         return {
             send: false,
             email: '',
@@ -19,17 +17,13 @@ class ContactForm extends React.Component {
         };
     }
 
-    updateEmail:
-
-    function (evt) {
+    updateEmail (evt) {
         this.setState({
             email: evt.target.value
         });
     }
 
-    updateContent:
-
-    function (evt) {
+    updateContent (evt) {
         this.setState({
             content: evt.target.value
         });

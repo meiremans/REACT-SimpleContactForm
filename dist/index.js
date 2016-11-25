@@ -1,8 +1,8 @@
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "jquery"], factory);
+        define(['exports', 'react', 'jquery'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("jquery"));
+        factory(exports, require('react'), require('jquery'));
     } else {
         var mod = {
             exports: {}
@@ -11,7 +11,7 @@
         global.index = mod.exports;
     }
 })(this, function (exports, _react, _jquery) {
-    "use strict";
+    'use strict';
 
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -90,7 +90,31 @@
         }
 
         _createClass(ContactForm, [{
-            key: "_handleSubmit",
+            key: 'getInitialState',
+            value: function getInitialState() {
+                return {
+                    send: false,
+                    email: '',
+                    content: '',
+                    subject: 'Mail Form From Website'
+                };
+            }
+        }, {
+            key: 'updateEmail',
+            value: function updateEmail(evt) {
+                this.setState({
+                    email: evt.target.value
+                });
+            }
+        }, {
+            key: 'updateContent',
+            value: function updateContent(evt) {
+                this.setState({
+                    content: evt.target.value
+                });
+            }
+        }, {
+            key: '_handleSubmit',
             value: function _handleSubmit(event) {
                 var email = (0, _jquery2.default)("#email").val();
                 if (validateEmail(email)) {
@@ -99,65 +123,70 @@
                     (0, _jquery2.default)('#emailContent').addClass('has-success');
                     (0, _jquery2.default)('#success').removeClass('hiddenSuccess');
                     (0, _jquery2.default)('#success').addClass('form-control-feedback');
+                    this.setState({ send: true });
+                    var mailData = this.state;
+                    this.props.callbackParent(mailData);
                 } else {
                     event.preventDefault();
                     (0, _jquery2.default)('#emailId').addClass('has-danger');
                 }
             }
         }, {
-            key: "render",
+            key: 'render',
             value: function render() {
 
                 return _react2.default.createElement(
-                    "div",
-                    { className: "contactForm" },
+                    'div',
+                    { className: 'contactForm' },
                     _react2.default.createElement(
-                        "div",
+                        'div',
                         null,
                         _react2.default.createElement(
-                            "h1",
+                            'h1',
                             null,
                             this.props.data.header
                         )
                     ),
                     _react2.default.createElement(
-                        "div",
+                        'div',
                         null,
                         _react2.default.createElement(
-                            "div",
-                            { className: "col s12" },
+                            'div',
+                            { className: 'col s12' },
                             _react2.default.createElement(
-                                "form",
+                                'form',
                                 null,
                                 _react2.default.createElement(
-                                    "div",
-                                    { id: "emailId", className: "form-group " },
+                                    'div',
+                                    { id: 'emailId', className: 'form-group ' },
                                     _react2.default.createElement(
-                                        "small",
-                                        { className: "form-text text-muted" },
+                                        'small',
+                                        { className: 'form-text text-muted' },
                                         this.props.data.mailAddress
                                     ),
-                                    _react2.default.createElement("input", { type: "text", className: "form-control form-control-success", id: "inputSuccess1" })
+                                    _react2.default.createElement('input', { type: 'text', value: this.state.email, onChange: this.updateEmail,
+                                        className: 'form-control form-control-success', id: 'inputSuccess1' })
                                 ),
                                 _react2.default.createElement(
-                                    "div",
-                                    { id: "emailContent", className: "input-field" },
+                                    'div',
+                                    { id: 'emailContent', className: 'input-field' },
                                     _react2.default.createElement(
-                                        "small",
-                                        { className: "form-text text-muted" },
+                                        'small',
+                                        { className: 'form-text text-muted' },
                                         this.props.data.message
                                     ),
-                                    _react2.default.createElement("textarea", { className: "form-control",
-                                        name: "emailcontent", id: "emailcontent", "data-cip-id": "emailcontent" }),
+                                    _react2.default.createElement('textarea', { className: 'form-control', value: this.state.content,
+                                        onChange: this.updateContent,
+                                        name: 'emailcontent', id: 'emailcontent', 'data-cip-id': 'emailcontent' }),
                                     _react2.default.createElement(
-                                        "div",
-                                        { id: "success", className: "hiddenSuccess" },
+                                        'div',
+                                        { id: 'success', className: 'hiddenSuccess' },
                                         this.props.data.sendMessage
                                     )
                                 ),
                                 _react2.default.createElement(
-                                    "button",
-                                    { className: "btn btn-primary",
+                                    'button',
+                                    { className: 'btn btn-primary',
                                         onClick: this._handleSubmit },
                                     this.props.data.sendButton
                                 )
