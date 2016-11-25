@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import $ from "jquery";
 
@@ -10,20 +8,50 @@ function validateEmail(email) {
 
 class ContactForm extends React.Component {
 
-    _handleSubmit (event) {
-    var email = $("#email").val();
-    if (validateEmail(email)) {
-        event.preventDefault();
-        $('#emailId').addClass('has-success');
-        $('#emailContent').addClass('has-success');
-        $('#success').removeClass('hiddenSuccess');
-        $('#success').addClass('form-control-feedback');
-    } else {
-        event.preventDefault();
-        $('#emailId').addClass('has-danger');
+    getInitialState:
+
+    function () {
+        return {
+            send: false,
+            email: '',
+            content: '',
+            subject: 'Mail Form From Website'
+        };
     }
 
-}
+    updateEmail:
+
+    function (evt) {
+        this.setState({
+            email: evt.target.value
+        });
+    }
+
+    updateContent:
+
+    function (evt) {
+        this.setState({
+            content: evt.target.value
+        });
+    }
+
+    _handleSubmit(event) {
+        var email = $("#email").val();
+        if (validateEmail(email)) {
+            event.preventDefault();
+            $('#emailId').addClass('has-success');
+            $('#emailContent').addClass('has-success');
+            $('#success').removeClass('hiddenSuccess');
+            $('#success').addClass('form-control-feedback');
+            this.setState({send: true});
+            var mailData = this.state;
+            this.props.callbackParent(mailData);
+        } else {
+            event.preventDefault();
+            $('#emailId').addClass('has-danger');
+        }
+
+    }
 
     render() {
 
@@ -35,11 +63,13 @@ class ContactForm extends React.Component {
                         <form>
                             <div id="emailId" className="form-group ">
                                 <small className="form-text text-muted">{this.props.data.mailAddress}</small>
-                                <input type="text" className="form-control form-control-success" id="inputSuccess1"/>
+                                <input type="text" value={this.state.email} onChange={this.updateEmail}
+                                       className="form-control form-control-success" id="inputSuccess1"/>
                             </div>
                             <div id="emailContent" className="input-field">
                                 <small className="form-text text-muted">{this.props.data.message}</small>
-                                <textarea className="form-control"
+                                <textarea className="form-control" value={this.state.content}
+                                          onChange={this.updateContent}
                                           name="emailcontent" id="emailcontent" data-cip-id="emailcontent"/>
                                 <div id="success" className="hiddenSuccess">{this.props.data.sendMessage}</div>
                             </div>
@@ -51,6 +81,7 @@ class ContactForm extends React.Component {
             </div>
         )
     }
-};
+}
+;
 
 export default ContactForm;

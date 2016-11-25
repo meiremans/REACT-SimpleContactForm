@@ -1,10 +1,10 @@
 {
-  "name": "react-Simple-Contact-Form",
+  "name": "react-simple-contact-form",
   "version": "0.0.1",
   "description": "Simple Contact Form",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meiremans/REACT-SimpleContactForm.git"
+    "url": "git+https://github.com/meiremans/REACT-SimpleContactForm.git"
   },
   "author": "Nick Meiremans",
   "license": "MIT",
@@ -56,5 +56,6 @@
   "dependencies": {
     "babel-runtime": "^6.6.1",
     "jquery": "^3.1.1"
-  }
+  },
+  "main": "index.js"
 }
