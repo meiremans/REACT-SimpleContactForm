@@ -83,25 +83,24 @@
     var ContactForm = function (_React$Component) {
         _inherits(ContactForm, _React$Component);
 
-        function ContactForm() {
+        function ContactForm(props) {
             _classCallCheck(this, ContactForm);
 
-            return _possibleConstructorReturn(this, (ContactForm.__proto__ || Object.getPrototypeOf(ContactForm)).apply(this, arguments));
+            var _this = _possibleConstructorReturn(this, (ContactForm.__proto__ || Object.getPrototypeOf(ContactForm)).call(this, props));
+
+            _this.state = {
+                send: false,
+                email: '',
+                content: '',
+                subject: 'Mail Form From Website'
+            };
+            return _this;
         }
 
         _createClass(ContactForm, [{
-            key: 'getInitialState',
-            value: function getInitialState() {
-                return {
-                    send: false,
-                    email: '',
-                    content: '',
-                    subject: 'Mail Form From Website'
-                };
-            }
-        }, {
             key: 'updateEmail',
             value: function updateEmail(evt) {
+
                 this.setState({
                     email: evt.target.value
                 });
@@ -116,19 +115,20 @@
         }, {
             key: '_handleSubmit',
             value: function _handleSubmit(event) {
+                console.log('HANDLESUBMIT');
+                var mailData = this.state;
+                console.log(mailData);
                 var email = (0, _jquery2.default)("#email").val();
                 if (validateEmail(email)) {
-                    event.preventDefault();
                     (0, _jquery2.default)('#emailId').addClass('has-success');
                     (0, _jquery2.default)('#emailContent').addClass('has-success');
                     (0, _jquery2.default)('#success').removeClass('hiddenSuccess');
                     (0, _jquery2.default)('#success').addClass('form-control-feedback');
-                    this.setState({ send: true });
-                    var mailData = this.state;
+                    event.preventDefault();
                     this.props.callbackParent(mailData);
                 } else {
-                    event.preventDefault();
                     (0, _jquery2.default)('#emailId').addClass('has-danger');
+                    event.preventDefault();
                 }
             }
         }, {
@@ -164,7 +164,7 @@
                                         { className: 'form-text text-muted' },
                                         this.props.data.mailAddress
                                     ),
-                                    _react2.default.createElement('input', { type: 'text', value: this.state.email, onChange: this.updateEmail,
+                                    _react2.default.createElement('input', { type: 'text', value: this.state.email, onChange: this.updateEmail.bind(this),
                                         className: 'form-control form-control-success', id: 'inputSuccess1' })
                                 ),
                                 _react2.default.createElement(
@@ -176,8 +176,8 @@
                                         this.props.data.message
                                     ),
                                     _react2.default.createElement('textarea', { className: 'form-control', value: this.state.content,
-                                        onChange: this.updateContent,
-                                        name: 'emailcontent', id: 'emailcontent', 'data-cip-id': 'emailcontent' }),
+                                        onChange: this.updateContent.bind(this),
+                                        name: 'emailcontent', id: 'emailcontent' }),
                                     _react2.default.createElement(
                                         'div',
                                         { id: 'success', className: 'hiddenSuccess' },
@@ -186,8 +186,8 @@
                                 ),
                                 _react2.default.createElement(
                                     'button',
-                                    { className: 'btn btn-primary',
-                                        onClick: this._handleSubmit },
+                                    { type: 'button', className: 'btn btn-primary',
+                                        onClick: this._handleSubmit.bind(this) },
                                     this.props.data.sendButton
                                 )
                             )

@@ -8,8 +8,9 @@ function validateEmail(email) {
 
 class ContactForm extends React.Component {
 
-    getInitialState() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             send: false,
             email: '',
             content: '',
@@ -30,20 +31,19 @@ class ContactForm extends React.Component {
         });
     }
 
-    _handleSubmit(event) {
+    _handleSubmit(event)  {
+        var mailData = this.state;
         var email = $("#email").val();
         if (validateEmail(email)) {
-            event.preventDefault();
             $('#emailId').addClass('has-success');
             $('#emailContent').addClass('has-success');
             $('#success').removeClass('hiddenSuccess');
             $('#success').addClass('form-control-feedback');
-            this.setState({send: true});
-            var mailData = this.state;
+            event.preventDefault();
             this.props.callbackParent(mailData);
         } else {
-            event.preventDefault();
             $('#emailId').addClass('has-danger');
+            event.preventDefault();
         }
 
     }
@@ -58,18 +58,18 @@ class ContactForm extends React.Component {
                         <form>
                             <div id="emailId" className="form-group ">
                                 <small className="form-text text-muted">{this.props.data.mailAddress}</small>
-                                <input type="text" value={this.state.email} onChange={this.updateEmail}
+                                <input type="text" value={this.state.email} onChange={this.updateEmail.bind(this)}
                                        className="form-control form-control-success" id="inputSuccess1"/>
                             </div>
                             <div id="emailContent" className="input-field">
                                 <small className="form-text text-muted">{this.props.data.message}</small>
                                 <textarea className="form-control" value={this.state.content}
-                                          onChange={this.updateContent}
-                                          name="emailcontent" id="emailcontent" data-cip-id="emailcontent"/>
+                                          onChange={this.updateContent.bind(this)}
+                                          name="emailcontent" id="emailcontent"/>
                                 <div id="success" className="hiddenSuccess">{this.props.data.sendMessage}</div>
                             </div>
-                            <button className="btn btn-primary"
-                                    onClick={this._handleSubmit}>{this.props.data.sendButton}</button>
+                            <button type="button" className="btn btn-primary"
+                                    onClick={this._handleSubmit.bind(this)}>{this.props.data.sendButton}</button>
                         </form>
                     </div>
                 </div>
