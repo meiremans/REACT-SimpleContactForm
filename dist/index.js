@@ -77,7 +77,7 @@
 
     function validateEmail(email) {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
+        return true;
     }
 
     var ContactForm = function (_React$Component) {
@@ -115,9 +115,7 @@
         }, {
             key: '_handleSubmit',
             value: function _handleSubmit(event) {
-                console.log('HANDLESUBMIT');
                 var mailData = this.state;
-                console.log(mailData);
                 var email = (0, _jquery2.default)("#email").val();
                 if (validateEmail(email)) {
                     (0, _jquery2.default)('#emailId').addClass('has-success');
